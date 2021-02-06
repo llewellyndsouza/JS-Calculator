@@ -11,27 +11,72 @@
     </div>
     <div class='container'>
         <div class="screen">0348</div>
-        <button class="button">C</button>
-        <button class="button">CE</button>
-        <button class="button">%</button>
-        <button class="button">/</button>
-        <button class="button">7</button>
-        <button class="button">8</button>
-        <button class="button">9</button>
-        <button class="button">x</button>
-        <button class="button">4</button>
-        <button class="button">5</button>
-        <button class="button">6</button>
-        <button class="button">-</button>
-        <button class="button">1</button>
-        <button class="button">2</button>
-        <button class="button">3</button>
-        <button class="button">+</button>
+        <button id='clear' class="button">C</button>
+        <button id='clear' class="button">CE</button>
+        <button id='operator' class="button">%</button>
+        <button id='operator' class="button">/</button>
+        <button id='digit' class="button">7</button>
+        <button id='digit' class="button">8</button>
+        <button id='digit' class="button">9</button>
+        <button id='operator' class="button">x</button>
+        <button id='digit' class="button">4</button>
+        <button id='digit' class="button">5</button>
+        <button id='digit' class="button">6</button>
+        <button id='operator' class="button">-</button>
+        <button id='digit' class="button">1</button>
+        <button id='digit' class="button">2</button>
+        <button id='digit' class="button">3</button>
+        <button id='operator' class="button">+</button>
         <button class="button">(-)</button>
-        <button class="button">0</button>
+        <button id='digit' class="button">0</button>
         <button class="button">.</button>
         <button class="button">=</button>
     </div>
 </body>
 
-<script src="scripts.js"></script>
+<!-- <script src="scripts.js"></script> -->
+
+<script>
+    let operand1 = NaN;
+    let operand2 = NaN;
+    let isError = true;
+    let disp = document.getElementsByClassName('screen')[0];
+
+    function setListeners() {
+        let btns = document.getElementsByClassName('button');
+        for (let i = 0; i < btns.length; i++) {
+            btns[i].addEventListener('click', event => {
+                buttonClick(event.target);
+            });
+        }
+    }
+
+    setListeners();
+
+    function buttonClick(btn) {
+
+        if (btn.id == 'digit') {
+            appendDigit(btn.textContent);
+        } else if (btn.id == 'operator') {
+            disp.innerHTML = 'operator';
+            isError = true;
+        } else if (btn.id == 'clear') {
+            clear();
+        } else {
+            disp.innerHTML = 'somehtin glse';
+            isError = true;
+        }
+    }
+
+    function appendDigit(digit) {
+        if (isError) clear();
+        disp.innerHTML += digit;
+    }
+
+    function clear() {
+        disp.innerHTML = '';
+        operand1 = NaN;
+        operand2 = NaN;
+        isError = false;
+    }
+</script>
